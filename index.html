@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Test Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nano-Volt Test Page</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px #000;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #ff5722;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background-color: #ff784e;
+    }
+
+    #clickCount {
+      margin-top: 20px;
+      font-size: 1.1em;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello from GitHub Pages!</h1>
-  <p>This is a test page.</p>
+
+  <h1>Welcome to Nano-Volt!</h1>
+  <p>This is your upgraded GitHub Pages test site.</p>
+
+  <button onclick="clickMe()">Click Me!</button>
+  <div id="clickCount">You haven't clicked yet.</div>
+
+  <script>
+    let count = 0;
+
+    function clickMe() {
+      count++;
+      document.getElementById('clickCount').textContent = `You clicked ${count} time${count > 1 ? 's' : ''}!`;
+    }
+  </script>
+
 </body>
 </html>
