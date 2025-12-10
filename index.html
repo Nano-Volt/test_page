@@ -25,33 +25,13 @@
 
 <body>
 
-<div id="content" class="markdown-body">Loading README…</div>
+<div id="content" class="markdown-body">
+  <h1> Welcome to our website's documentation in here you'll some free resources of Nano-Volt</h1>
+  <p>Check our other resources</p>
+</div>
 
 <script>
-async function renderReadme() {
-  // 1. Load README.md (from same folder)
-  const md = await fetch("README.md").then(res => res.text());
-
-  // 2. Send markdown to GitHub's GFM renderer
-  const res = await fetch("https://api.github.com/markdown", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      text: md,
-      mode: "gfm"
-    })
-  });
-
-  // 3. Convert response to HTML
-  const html = await res.text();
-
-  // 4. Inject HTML into the page
-  document.getElementById("content").innerHTML = html;
-}
-
-renderReadme();
+Console.log("Salam")
 </script>
 
 </body>
