@@ -1,8 +1,7 @@
-# Alhumdullah it worked 
--1
-- 3
-- 4
-- 5
-- 6
-- 7
-- 8
+# This website is an example of markdown render via Github's Api
+
+if you want to write code you could use 
+
+```python
+print("Salam")
+```
