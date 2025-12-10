@@ -1,66 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nano-Volt Test Page</title>
+  <title>GitHub Style Markdown</title>
+
+  <!-- GitHub Markdown CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css">
+
+  <!-- Markdown Renderer -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #1e3c72, #2a5298);
-      color: #fff;
-      text-align: center;
-      padding: 50px;
+      background: #f6f8fa;
+      padding: 20px;
     }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px #000;
-    }
-
-    p {
-      font-size: 1.2em;
-      margin-bottom: 30px;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 1em;
-      background-color: #ff5722;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
-    }
-
-    button:hover {
-      transform: scale(1.1);
-      background-color: #ff784e;
-    }
-
-    #clickCount {
-      margin-top: 20px;
-      font-size: 1.1em;
+    .markdown-body {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
   </style>
 </head>
+
 <body>
 
-  <h1>Welcome to Nano-Volt!</h1>
-  <p>This is your upgraded GitHub Pages test site.</p>
+<div id="content" class="markdown-body"></div>
 
-  <button onclick="clickMe()">Click Me!</button>
-  <div id="clickCount">You haven't clicked yet.</div>
-
-  <script>
-    let count = 0;
-
-    function clickMe() {
-      count++;
-      document.getElementById('clickCount').textContent = `You clicked ${count} time${count > 1 ? 's' : ''}!`;
-    }
-  </script>
+<script>
+fetch("README.md")
+  .then(res => res.text())
+  .then(md => {
+    document.getElementById("content").innerHTML = marked.parse(md);
+  });
+</script>
 
 </body>
 </html>
