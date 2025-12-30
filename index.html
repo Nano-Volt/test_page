@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Render Markdown</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown Viewer</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+    h1, h2, h3 { color: #2c3e50; }
+    pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    code { background: #eee; padding: 2px 4px; border-radius: 3px; }
+  </style>
 </head>
 <body>
+  <div id="markdown-container">Loading...</div>
 
-<h1>Markdown Preview</h1>
-<div id="content"></div>
+  <script>
+    // URL to your Markdown file on GitHub Pages
+    const markdownFile = 'docs/example.md'; // relative path works on GitHub Pages
 
-<script>
-    // Fetch the markdown file
-    fetch('docs/example.md')
-        .then(response => response.text())
-        .then(markdownText => {
-            // Convert Markdown to HTML
-            const htmlContent = marked(markdownText);
-            // Insert HTML into the page
-            document.getElementById('content').innerHTML = htmlContent;
-        })
-        .catch(err => console.error('Error fetching markdown:', err));
-</script>
-
+    fetch(markdownFile)
+      .then(response => {
+        if (!response.ok) throw new Error('Cannot fetch Markdown file');
+        return response.text();
+      })
+      .then(markdown => {
+        document.getElementById('markdown-container').innerHTML = marked(markdown);
+      })
+      .catch(err => {
+        document.getElementById('markdown-container').innerHTML = 'Error loading file: ' + err;
+      });
+  </script>
 </body>
 </html>
