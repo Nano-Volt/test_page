@@ -4,20 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Markdown Viewer</title>
+  <!-- marked.js for browser -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
     h1, h2, h3 { color: #2c3e50; }
     pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
     code { background: #eee; padding: 2px 4px; border-radius: 3px; }
+    a { color: #3498db; text-decoration: none; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
+  <h1>Markdown Viewer</h1>
   <div id="markdown-container">Loading...</div>
 
   <script>
-    // URL to your Markdown file on GitHub Pages
-    const markdownFile = 'docs/example.md'; // relative path works on GitHub Pages
+    // Path to your Markdown file inside docs/
+    const markdownFile = 'docs/example.md';
 
     fetch(markdownFile)
       .then(response => {
@@ -25,7 +35,8 @@
         return response.text();
       })
       .then(markdown => {
-        document.getElementById('markdown-container').innerHTML = marked(markdown);
+        // Convert Markdown to HTML
+        document.getElementById('markdown-container').innerHTML = marked.parse(markdown);
       })
       .catch(err => {
         document.getElementById('markdown-container').innerHTML = 'Error loading file: ' + err;
