@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Markdown Viewer</title>
-  <!-- marked.js for browser -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <title>GitHub API Markdown Viewer</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -22,24 +20,38 @@
   </style>
 </head>
 <body>
-  <h1>Markdown Viewer</h1>
+  <h1>GitHub API Markdown Viewer</h1>
   <div id="markdown-container">Loading...</div>
 
   <script>
-    // Path to your Markdown file inside docs/
-    const markdownFile = 'docs/example.md';
+    const markdownFile = 'docs/example.md'; // Path in your repo
+    const githubMarkdownApi = 'https://api.github.com/markdown';
 
+    // Step 1: Fetch the Markdown file from your GitHub Pages repo
     fetch(markdownFile)
-      .then(response => {
-        if (!response.ok) throw new Error('Cannot fetch Markdown file');
-        return response.text();
-      })
+      .then(res => res.text())
       .then(markdown => {
-        // Convert Markdown to HTML
-        document.getElementById('markdown-container').innerHTML = marked.parse(markdown);
+        // Step 2: Send Markdown to GitHub API for rendering
+        return fetch(githubMarkdownApi, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github+json'
+            // 'Authorization': 'Bearer YOUR_TOKEN' // optional for higher rate limit
+          },
+          body: JSON.stringify({
+            text: markdown,
+            mode: 'gfm'
+          })
+        });
+      })
+      .then(res => res.text()) // GitHub API returns HTML
+      .then(html => {
+        // Step 3: Render returned HTML
+        document.getElementById('markdown-container').innerHTML = html;
       })
       .catch(err => {
-        document.getElementById('markdown-container').innerHTML = 'Error loading file: ' + err;
+        document.getElementById('markdown-container').innerHTML = 'Error loading Markdown: ' + err;
       });
   </script>
 </body>
